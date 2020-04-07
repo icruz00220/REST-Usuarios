@@ -1,11 +1,13 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
 const Usuario = require('../models/usuario')
 const _ = require('underscore')
+const { tokenauth, admin } = require('../middlewares/token')
 const express = require('express')
 const app = express()
 
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', [tokenauth], (req, res) => {
+    // return res.json(req.usuario)
     let limite = req.query.limite || 10
     limite = Number(limite)
 
@@ -33,7 +35,7 @@ app.get('/usuario', function(req, res) {
         })
 })
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [tokenauth, admin], (req, res) => {
     let id = req.params.id
 
     let body = _.pick(req.body, ['nombre', 'email', 'role', 'imagen', 'estado'])
@@ -52,7 +54,7 @@ app.put('/usuario/:id', function(req, res) {
     })
 })
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [tokenauth, admin], (req, res) => {
     let body = req.body
 
     let usuario = new Usuario({
@@ -76,7 +78,7 @@ app.post('/usuario', function(req, res) {
     })
 })
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [tokenauth, admin], (req, res) => {
     let id = req.params.id
     Usuario.findByIdAndUpdate(id, { estado: false }, { new: true }, (err, resp) => {
         if (err)

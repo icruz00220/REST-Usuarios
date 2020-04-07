@@ -7,4 +7,6 @@ if (process.env.NODE_ENV === 'dev')
 else
     process.env.URI = process.env.MONGO_URI
 
-//'mongodb+srv://admin:kf6EE7cZx3A4auGU@cluster0-vvc2x.mongodb.net/test?retryWrites=true&w=majority'
+process.env.CADUCIDAD = 60 * 60 * 24 * 30
+
+process.env.FIRMA = process.env.FIRMA || 'secret'
