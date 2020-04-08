@@ -45,10 +45,10 @@ app.post('/login', function(req, res) {
 })
 
 async function verify(token) {
-    console.log(token)
+    console.log(token, process.env.CLIENT_ID)
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: process.env.CLIENT_ID,
+        audience: '600096644558-514fe5cp3i145j2ii9h7ev9th88ems7i.apps.googleusercontent.com',
     });
     const payload = ticket.getPayload();
     console.log(payload)
