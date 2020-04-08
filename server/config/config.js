@@ -10,3 +10,5 @@ else
 process.env.CADUCIDAD = 60 * 60 * 24 * 30
 
 process.env.FIRMA = process.env.FIRMA || 'secret'
+
+process.env.CLIENT_ID = process.env.CLIENT_ID || 'CLIENT_ID'
