@@ -64,7 +64,9 @@ app.post('/google', async(req, res) => {
     let googleUsuario = await verify(token).catch(err => {
         return res.status(500).json({
             'ok': false,
-            err
+            err: {
+                message: "No funca"
+            }
         })
     })
 
