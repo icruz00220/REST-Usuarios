@@ -16,7 +16,7 @@
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             var id_token = googleUser.getAuthResponse().id_token;
-            console.log(id_token)
+
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/google');
@@ -24,6 +24,7 @@
             xhr.onload = function() {
                 console.log('Signed in as: ' + xhr.responseText);
             };
+            console.log(id_token)
             xhr.send('idtoken=' + id_token);
         }
 
