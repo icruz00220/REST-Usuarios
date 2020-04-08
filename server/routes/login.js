@@ -44,19 +44,23 @@ app.post('/login', function(req, res) {
     })
 })
 
+// Configuraciones de Google
 async function verify(token) {
-    console.log(token, process.env.CLIENT_ID)
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: '600096644558-514fe5cp3i145j2ii9h7ev9th88ems7i.apps.googleusercontent.com',
+        audience: process.env.CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+        // Or, if multiple clients access the backend:
+        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
     const payload = ticket.getPayload();
-    console.log(payload)
+
     return {
         nombre: payload.name,
         email: payload.email,
-        img: payload.picture
+        img: payload.picture,
+        google: true
     }
+
 }
 
 app.post('/google', async(req, res) => {
