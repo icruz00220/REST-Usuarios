@@ -11,4 +11,4 @@ process.env.CADUCIDAD = 60 * 60 * 24 * 30
 
 process.env.FIRMA = process.env.FIRMA || 'secret'
 
-process.env.CLIENT_ID = process.env.CLIENT_ID || 'CLIENT_ID'
+process.env.CLIENT_ID = process.env.CLIENT_ID || '600096644558-514fe5cp3i145j2ii9h7ev9th88ems7i.apps.googleusercontent.com'
