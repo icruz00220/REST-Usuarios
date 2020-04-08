@@ -64,7 +64,8 @@ app.post('/google', async(req, res) => {
     let googleUsuario = await verify(token).catch(e => {
         return res.status(403).json({
             ok: false,
-            err: e
+            err: e,
+            message: 'El pedo es aqui'
         })
     })
 
