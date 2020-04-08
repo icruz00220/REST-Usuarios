@@ -61,9 +61,9 @@ async function verify(token) {
 app.post('/google', async(req, res) => {
     let token = req.body.idtoken
     console.log(token)
-    let googleUsuario = await verify(token).catch(err => {
+    let googleUsuario = await verify(token).catch(e => {
         return res.status(403).json({
-            'ok': false,
+            ok: false,
             err: e
         })
     })
@@ -71,26 +71,26 @@ app.post('/google', async(req, res) => {
     Usuario.findOne({ email: googleUsuario.email }, (err, resp) => {
         if (err)
             return res.status(500).json({
-                'ok': false,
+                ok: false,
                 err
             })
         if (resp) {
             if (resp.google === false) {
                 return res.status(400).json({
-                    'ok': false,
+                    ok: false,
                     err: {
                         message: 'Este correo ya existe en la BD, use autenticacion normal'
                     }
                 })
             } else {
-                let token = jwt.sign({
-                    'usuario': resp
+                let token2 = jwt.sign({
+                    usuario: resp
                 }, process.env.FIRMA, { expiresIn: process.env.CADUCIDAD });
 
                 res.json({
-                    'ok': true,
-                    'usuario': resp,
-                    token
+                    ok: true,
+                    usuario: resp,
+                    token2
                 })
             }
         } else {
@@ -104,18 +104,18 @@ app.post('/google', async(req, res) => {
             usuario.save((err, usuarioDB) => {
                 if (err)
                     return res.status(500).json({
-                        'ok': false,
+                        ok: false,
                         err
                     })
 
-                let token = jwt.sign({
+                let token2 = jwt.sign({
                     usuario: resp
                 }, process.env.FIRMA, { expiresIn: process.env.CADUCIDAD });
 
                 res.json({
                     ok: true,
                     usuario: usuarioDB,
-                    token
+                    token2
                 })
             })
         }
