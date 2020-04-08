@@ -1,6 +1,9 @@
 {
     "name": "restnode",
     "version": "0.0.1",
+    "engines": {
+        "node": "12.16.1"
+    },
     "description": "rest node basico",
     "main": "index.js",
     "scripts": {
