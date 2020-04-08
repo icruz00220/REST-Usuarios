@@ -49,7 +49,7 @@ async function verify(token) {
 
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: process.env.CI
+        audience: '600096644558-ssbkgha5npdn1qju9vmf92huif6rq4q9.apps.googleusercontent.com'
             //  audience: '600096644558-514fe5cp3i145j2ii9h7ev9th88ems7i.apps.googleusercontent.com'
     });
     const payload = ticket.getPayload();
