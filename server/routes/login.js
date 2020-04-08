@@ -44,7 +44,7 @@ app.post('/login', function(req, res) {
     })
 })
 
-const verify = async token => {
+async function verify(token) {
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.CLIENT_ID,
@@ -60,12 +60,11 @@ const verify = async token => {
 
 app.post('/google', async(req, res) => {
     let token = req.body.idtoken
-    googleUsuario = await verify(token).catch(err => {
-        if (err)
-            return res.status(500).json({
-                'ok': false,
-                err
-            })
+    let googleUsuario = await verify(token).catch(err => {
+        return res.status(500).json({
+            'ok': false,
+            err
+        })
     })
 
     Usuario.findOne({ email: googleUsuario.email }, (err, resp) => {
@@ -109,11 +108,12 @@ app.post('/google', async(req, res) => {
                     })
 
                 let token = jwt.sign({
-                    'usuario': resp
+                    usuario: resp
                 }, process.env.FIRMA, { expiresIn: process.env.CADUCIDAD });
+
                 res.json({
-                    'ok': true,
-                    'usuario': usuarioDB,
+                    ok: true,
+                    usuario: usuarioDB,
                     token
                 })
             })
