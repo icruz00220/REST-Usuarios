@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const Usuario = require('../models/usuario')
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client(process.env.CLIENT_ID);
+const client = new OAuth2Client(process.env.CI);
 const express = require('express')
 const app = express()
 
@@ -49,7 +49,8 @@ async function verify(token) {
 
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: '600096644558-514fe5cp3i145j2ii9h7ev9th88ems7i.apps.googleusercontent.com'
+        audience: process.env.CI
+            //  audience: '600096644558-514fe5cp3i145j2ii9h7ev9th88ems7i.apps.googleusercontent.com'
     });
     const payload = ticket.getPayload();
 
