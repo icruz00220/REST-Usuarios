@@ -45,12 +45,13 @@ app.post('/login', function(req, res) {
 })
 
 async function verify(token) {
+    console.log(token)
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.CLIENT_ID,
     });
     const payload = ticket.getPayload();
-
+    console.log(payload)
     return {
         nombre: payload.name,
         email: payload.email,
@@ -60,7 +61,7 @@ async function verify(token) {
 
 app.post('/google', async(req, res) => {
     let token = req.body.idtoken
-    console.log(token)
+
     let googleUsuario = await verify(token).catch(e => {
         return res.status(403).json({
             ok: false,
