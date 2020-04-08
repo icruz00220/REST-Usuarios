@@ -45,13 +45,11 @@ app.post('/login', function(req, res) {
 })
 
 // Configuraciones de Google
-async function verify(token, client) {
-    console.log(client)
+async function verify(token) {
+
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: client // Specify the CLIENT_ID of the app that accesses the backend
-            // Or, if multiple clients access the backend:
-            //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        audience: '600096644558-514fe5cp3i145j2ii9h7ev9th88ems7i.apps.googleusercontent.com'
     });
     const payload = ticket.getPayload();
 
@@ -67,11 +65,10 @@ async function verify(token, client) {
 app.post('/google', async(req, res) => {
     let token = req.body.idtoken
 
-    let googleUsuario = await verify(token, process.env.CLIENT_ID).catch(e => {
+    let googleUsuario = await verify(token).catch(e => {
         return res.status(403).json({
             ok: false,
-            err: e,
-            message: 'El pedo es aqui'
+            err: e
         })
     })
 
