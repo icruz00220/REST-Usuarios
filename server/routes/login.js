@@ -62,11 +62,9 @@ app.post('/google', async(req, res) => {
     let token = req.body.idtoken
     console.log(token)
     let googleUsuario = await verify(token).catch(err => {
-        return res.status(500).json({
+        return res.status(403).json({
             'ok': false,
-            err: {
-                message: "No funca"
-            }
+            err: e
         })
     })
 
