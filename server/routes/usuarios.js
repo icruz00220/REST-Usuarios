@@ -15,7 +15,7 @@ app.get('/usuario', [tokenauth], (req, res) => {
     desde = Number(desde)
 
     Usuario
-        .find({ estado: true }, 'nombre email role estado')
+        .find({ estado: true }, 'nombre email role estado img')
         .skip(desde)
         .limit(limite)
         .exec((err, resp) => {
